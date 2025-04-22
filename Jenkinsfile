@@ -28,7 +28,10 @@ pipeline {
                     
                     echo "Running docker compose up"
                     sh 'docker-compose up -d --build'
-                    
+
+                    echo "Waiting for frontend to be ready"
+                    sleep 5
+
                     echo "Testing frontend availability"
                     sh 'curl -s http://host.docker.internal:3000 || exit 1'
                 }
