@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/bansal-harsh-2504/Jenkins-cicd.git'
+                git url: 'https://github.com/bansal-harsh-2504/Jenkins-cicd.git',
+                branch: 'main',
+                credentialsId: '12dede6d-4927-4c16-9bfb-f035ffb4c24f'
             }
         }
 
