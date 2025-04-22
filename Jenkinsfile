@@ -8,29 +8,32 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/bansal-harsh-2504/Jenkins-cicd.git',
-                branch: 'main'
+                git url: 'https://github.com/bansal-harsh-2504/Jenkins-cicd.git', branch: 'main'
             }
         }
 
         stage('Build and Deploy') {
             steps {
-                sh '''
-                    docker compose down || true
+                script {
+                    echo "Running docker compose down"
+                    sh 'docker compose down || true'
+                    
+                    echo "Running docker compose up"
+                    sh 'docker compose up -d --build'
 
-                    docker compose up -d --build
-
-                    echo "⏳ Waiting for frontend (Nginx) to be available..."
+                    echo "Waiting for frontend (Nginx)"
                     sleep 10
 
-                    curl -s http://localhost:80 || exit 1
-                '''
+                    echo "Testing frontend availability"
+                    sh 'curl -s http://localhost:80 || exit 1'
+                }
             }
         }
     }
 
     post {
         always {
+            echo "Cleaning up containers"
             sh 'docker container prune -f || true'
             sh 'docker image prune -f || true'
         }
