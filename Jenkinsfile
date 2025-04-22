@@ -10,7 +10,6 @@ pipeline {
             steps {
                 git url: 'https://github.com/bansal-harsh-2504/Jenkins-cicd.git',
                 branch: 'main',
-                credentialsId: '03a4c19e-8916-472d-83a2-155a8bb2d967'
             }
         }
 
