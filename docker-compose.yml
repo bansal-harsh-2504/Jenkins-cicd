@@ -6,9 +6,8 @@ services:
     container_name: mern-backend
     ports:
       - "8000:8000"
-    environment:
-      - PORT=8000
-      - MONGO_URL=mongodb+srv://harsh:harsh@cluster0.oaeel.mongodb.net/jobPortal
+    env_file:
+      - ./backend/.env
     volumes:
       - ./backend:/app
 
