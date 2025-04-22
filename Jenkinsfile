@@ -30,7 +30,7 @@ pipeline {
                     sh 'docker-compose up -d --build'
 
                     echo "Waiting for frontend (Nginx)"
-                    sleep 30
+                    sleep 10
 
                     echo "Testing frontend availability"
                     sh 'curl -s http://localhost:80 || exit 1'

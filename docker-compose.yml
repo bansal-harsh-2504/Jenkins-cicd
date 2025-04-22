@@ -8,13 +8,9 @@ services:
       - "8000:8000"
     env_file:
       - ./backend/.env
-    volumes:
-      - ./backend:/app
 
   frontend:
     build: ./frontend
     container_name: mern-frontend
     ports:
-      - "80:80"
-    depends_on:
-      - backend
+      - "3000:3000"
