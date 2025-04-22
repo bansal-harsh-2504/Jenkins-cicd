@@ -8,26 +8,21 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/Aryangupta6612/django-todo-cicd.git', branch: 'develop'
+                git url: 'https://github.com/bansal-harsh-2504/Jenkins-cicd.git'
             }
         }
 
         stage('Build and Deploy') {
             steps {
                 sh '''
-                    # Clean up previous containers
                     docker compose down || true
-                    
-                    # Build and start
+
                     docker compose up -d --build
-                    
-                    # Wait for health check
-                    echo "Waiting for application to become healthy..."
-                    timeout 60s bash -c 'until docker compose ps | grep "healthy"; do sleep 5; done' || exit 1
-                    
-                    # Verify from Jenkins container
-                    docker run --network todo-app-cicd_app_network curlimages/curl \
-                      curl -s http://web:8000 || exit 1
+
+                    echo "⏳ Waiting for frontend (Nginx) to be available..."
+                    sleep 10
+
+                    curl -s http://localhost:80 || exit 1
                 '''
             }
         }
@@ -43,7 +38,8 @@ pipeline {
         }
         failure {
             echo '❌ Build failed. Please check the logs!'
-            sh 'docker compose logs web'
+            sh 'docker compose logs backend || true'
+            sh 'docker compose logs frontend || true'
         }
     }
 }
