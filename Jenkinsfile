@@ -12,6 +12,14 @@ pipeline {
             }
         }
 
+        stage('Inject Env File') {
+            steps {
+                withCredentials([file(credentialsId: 'my-env-file', variable: 'ENV_FILE')]) {
+                    sh "cp \$ENV_FILE ./backend/.env"
+                }
+            }
+        }
+
         stage('Build and Deploy') {
             steps {
                 script {
