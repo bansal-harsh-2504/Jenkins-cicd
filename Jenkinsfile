@@ -16,10 +16,10 @@ pipeline {
             steps {
                 script {
                     echo "Running docker compose down"
-                    sh 'docker compose down || true'
+                    sh 'docker-compose down || true'
                     
                     echo "Running docker compose up"
-                    sh 'docker compose up -d --build'
+                    sh 'docker-compose up -d --build'
 
                     echo "Waiting for frontend (Nginx)"
                     sleep 10
@@ -42,8 +42,8 @@ pipeline {
         }
         failure {
             echo '❌ Build failed. Please check the logs!'
-            sh 'docker compose logs backend || true'
-            sh 'docker compose logs frontend || true'
+            sh 'docker-compose logs backend || true'
+            sh 'docker-compose logs frontend || true'
         }
     }
 }
