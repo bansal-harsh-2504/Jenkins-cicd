@@ -29,11 +29,11 @@ pipeline {
                     echo "Running docker compose up"
                     sh 'docker-compose up -d --build'
 
-                    echo "Waiting for frontend (Nginx)"
-                    sleep 10
+                    echo "Waiting for frontend to be ready"
+                    sleep 10  // Adjust the sleep if needed, depending on your app's readiness
 
                     echo "Testing frontend availability"
-                    sh 'curl -s http://localhost:80 || exit 1'
+                    sh 'curl -s http://localhost:3000 || exit 1'
                 }
             }
         }
