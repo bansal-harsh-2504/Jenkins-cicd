@@ -22,7 +22,7 @@ const HeroSection = () => {
           No. 1 Job Hunt Website
         </span>
         <h1 className="text-5xl font-bold">
-          Search, Apply & <br /> Get Your{" "}
+          Change, Apply & <br /> Get Your{" "}
           <span className="text-[#6A38C2]">Dream Jobs</span>
         </h1>
         <p>
